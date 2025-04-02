@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Churn Prediction</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f4f6f9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        line-height: 1.6;
+        color: #333;
+      }
+      .container {
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 500px;
+        padding: 30px;
+        margin: 20px;
+      }
+      .login {
+        text-align: center;
+      }
+      h1 {
+        color: #2c3e50;
+        margin-bottom: 25px;
+        font-size: 2rem;
+        font-weight: 600;
+      }
+      form {
+        display: grid;
+        gap: 15px;
+      }
+      input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+      }
+      input:focus {
+        outline: none;
+        border-color: #3498db;
+      }
+      button {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        padding: 15px 25px;
+        border-radius: 8px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.1s ease;
+        margin-top: 15px;
+      }
+      button:hover {
+        background-color: #2980b9;
+      }
+      button:active {
+        transform: scale(0.98);
+      }
+      .prediction-result {
+        margin-top: 20px;
+        text-align: center;
+        padding: 15px;
+        background-color: #5da5d9;
+        border-radius: 8px;
+        color: #2c3e50;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="login">
+        <h1>Churn Prediction</h1>
+
+        <form action="/predict" method="POST">
+          <input
+            type="number"
+            name="SeniorCitizen"
+            placeholder="Senior Citizen (0/1)"
+            required
+          />
+          <input
+            type="number"
+            name="MonthlyCharges"
+            placeholder="Monthly Charges"
+            required
+          />
+          <input
+            type="number"
+            name="TotalCharges"
+            placeholder="Total Charges"
+            required
+          />
+          <input
+            type="number"
+            name="Churn"
+            placeholder="Churn (0/1)"
+            required
+          />
+          <input
+            type="number"
+            name="gender_Male"
+            placeholder="Gender (0 for Female, 1 for Male)"
+            required
+          />
+          <input
+            type="number"
+            name="Partner_Yes"
+            placeholder="Partner (0 for No, 1 for Yes)"
+            required
+          />
+          <input
+            type="number"
+            name="Dependents_Yes"
+            placeholder="Dependents (0 for No, 1 for Yes)"
+            required
+          />
+          <input
+            type="number"
+            name="PhoneService_Yes"
+            placeholder="Phone Service (0 for No, 1 for Yes)"
+            required
+          />
+          <input
+            type="number"
+            name="MultipleLines_No phone service"
+            placeholder="Multiple Lines (0 for No phone service, 1 for Yes)"
+            required
+          />
+          <input
+            type="number"
+            name="MultipleLines_Yes"
+            placeholder="Multiple Lines (0 for No, 1 for Yes)"
+            required
+          />
+          <input
+            type="number"
+            name="InternetService_Fiber optic"
+            placeholder="Internet Service (0 for No, 1 for Fiber optic)"
+            required
+          />
+          <input
+            type="number"
+            name="InternetService_No"
+            placeholder="Internet Service (0 for No, 1 for Yes)"
+            required
+          />
+          <input
+            type="number"
+            name="OnlineSecurity_No internet service"
+            placeholder="Online Security (0 for No internet service, 1 for Yes)"
+            required
+          />
+          <input
+            type="number"
+            name="OnlineSecurity_Yes"
+            placeholder="Online Security (0 for No, 1 for Yes)"
+            required
+          />
+          <input
+            type="number"
+            name="OnlineBackup_No internet service"
+            placeholder="Online Backup (0 for No internet service, 1 for Yes)"
+            required
+          />
+          <input
+            type="number"
+            name="OnlineBackup_Yes"
+            placeholder="Online Backup (0 for No, 1 for Yes)"
+            required
+          />
+          <input
+            type="number"
+            name="DeviceProtection_No internet service"
+            placeholder="Device Protection (0 for No internet service, 1 for Yes)"
+            required
+          />
+          <input
+            type="number"
+            name="DeviceProtection_Yes"
+            placeholder="Device Protection (0 for No, 1 for Yes)"
+            required
+          />
+          <input
+            type="number"
+            name="TechSupport_No internet service"
+            placeholder="Tech Support (0 for No internet service, 1 for Yes)"
+            required
+          />
+          <input
+            type="number"
+            name="TechSupport_Yes"
+            placeholder="Tech Support (0 for No, 1 for Yes)"
+            required
+          />
+          <input
+            type="number"
+            name="StreamingTV_No internet service"
+            placeholder="Streaming TV (0 for No internet service, 1 for Yes)"
+            required
+          />
+          <input
+            type="number"
+            name="StreamingTV_Yes"
+            placeholder="Streaming TV (0 for No, 1 for Yes)"
+            required
+          />
+          <input
+            type="number"
+            name="StreamingMovies_No internet service"
+            placeholder="Streaming Movies (0 for No internet service, 1 for Yes)"
+            required
+          />
+          <input
+            type="number"
+            name="StreamingMovies_Yes"
+            placeholder="Streaming Movies (0 for No, 1 for Yes)"
+            required
+          />
+          <input
+            type="number"
+            name="Contract_One year"
+            placeholder="Contract (0 for No, 1 for One year)"
+            required
+          />
+          <input
+            type="number"
+            name="Contract_Two year"
+            placeholder="Contract (0 for No, 1 for Two year)"
+            required
+          />
+          <input
+            type="number"
+            name="PaperlessBilling_Yes"
+            placeholder="Paperless Billing (0 for No, 1 for Yes)"
+            required
+          />
+          <input
+            type="number"
+            name="PaymentMethod_Credit card (automatic)"
+            placeholder="Payment Method (0 for No, 1 for Credit card)"
+            required
+          />
+          <input
+            type="number"
+            name="PaymentMethod_Electronic check"
+            placeholder="Payment Method (0 for No, 1 for Electronic check)"
+            required
+          />
+          <input
+            type="number"
+            name="PaymentMethod_Mailed check"
+            placeholder="Payment Method (0 for No, 1 for Mailed check)"
+            required
+          />
+          <input
+            type="number"
+            name="tenure_group_13 - 24"
+            placeholder="Tenure Group (0 for No, 1 for 13 - 24 months)"
+            required
+          />
+          <input
+            type="number"
+            name="tenure_group_25 - 36"
+            placeholder="Tenure Group (0 for No, 1 for 25 - 36 months)"
+            required
+          />
+          <input
+            type="number"
+            name="tenure_group_37 - 48"
+            placeholder="Tenure Group (0 for No, 1 for 37 - 48 months)"
+            required
+          />
+          <input
+            type="number"
+            name="tenure_group_49 - 60"
+            placeholder="Tenure Group (0 for No, 1 for 49 - 60 months)"
+            required
+          />
+          <input
+            type="number"
+            name="tenure_group_61 - 72"
+            placeholder="Tenure Group (0 for No, 1 for 61 - 72 months)"
+            required
+          />
+
+          <button type="submit">Predict Churn</button>
+        </form>
+
+        {% if prediction_text %}
+        <div class="prediction-result">{{ prediction_text }}</div>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>
